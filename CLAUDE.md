@@ -31,6 +31,12 @@ torch must stay <2.6 (pinned in requirements.txt): newer torch defaults `torch.l
 
 **RL layer** (`notebooks/ppo/`): a PPO implementation adapted for PyG graph observations (gymnasium env whose observations are batched `Data` objects), used only by notebook 7. Note the README caveat: notebook 7 was never fully trained for lack of compute; the code is reference-quality but functional.
 
+## A500 (Chinese A-shares) variant
+
+A parallel pipeline runs the same notebooks on Chinese A-share data. `data/A500_RAW` is a directory link to private per-ticker CSVs (`D:\PriProjects\QuantTraderAlpha101_pri\data\A500\`, columns: date/code/market/sector_name/OHLCV/...). `scripts/preprocess_a500.py` converts it into `data/A500/raw/{values.csv, adj.npy, stocks.csv}` with the exact SP100 format (same features/column order; symbols as `000001.SZ`; tickers aligned to a common calendar, incomplete ones dropped). Since A500 has no fundamentals, the adjacency uses daily-return correlation with notebook 2's sector-bonus merge; the threshold is auto-picked for mean degree ~5.5. Everything under `data/A500*` is gitignored and regenerable.
+
+The `*_a500.ipynb` notebooks are **generated** from the originals by `scripts/clone_notebooks_a500.py` (path/name rewrites; notebooks 1-2 replaced by the preprocessing script, 4 is data-independent) — edit the original notebook and re-run that script rather than editing a clone. `SP100Stocks(root="../data/A500/", ...)` works because `process()` resolves paths via `self.raw_paths`; both A500 and SP100 variants share `data/<name>/processed/`, so switching `past_window`/`future_window` between notebooks triggers reprocessing.
+
 ## Conventions
 
 - Python files use tabs for indentation and docstrings with `:param:` style.

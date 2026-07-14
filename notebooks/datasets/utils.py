@@ -36,9 +36,10 @@ def get_graph_in_pyg_format(values_path: str, adj_path: str) -> tuple[torch.Tens
 	return x, close_prices, edge_index, edge_weight
 
 
-def get_stocks_labels() -> list[str]:
+def get_stocks_labels(values_path: str = "../data/SP100/raw/values.csv") -> list[str]:
 	"""
 	Retrieves the labels (symbols) of the dataset stocks
+	:param values_path: Path of the CSV file containing the stock price data
 	:return: The list of stock labels
 	"""
-	return pd.read_csv("../data/SP100/raw/values.csv")["Symbol"].unique().tolist()
+	return pd.read_csv(values_path)["Symbol"].unique().tolist()

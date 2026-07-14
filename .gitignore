@@ -6,3 +6,8 @@
 /data/SP100/processed/
 /data/SP100/forecasting_processed/
 /notebooks/**/*.pyc
+
+# A500 (Chinese A-shares): A500_RAW is a link to private external data,
+# data/A500/ is regenerated from it by scripts/preprocess_a500.py
+/data/A500_RAW
+/data/A500/

@@ -37,8 +37,8 @@ class SP100Stocks(Dataset):
 
 	def process(self) -> None:
 		x, close_prices, edge_index, edge_weight = get_graph_in_pyg_format(
-			values_path='../data/SP100/raw/values.csv',
-			adj_path='../data/SP100/raw/adj.npy',
+			values_path=self.raw_paths[0],
+			adj_path=self.raw_paths[1],
 		)
 		timestamps = [
 			Data(
